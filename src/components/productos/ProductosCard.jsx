@@ -7,7 +7,7 @@ import { CardActionArea } from '@mui/material';
 
 const ProductosCard = () => {
     return (
-        <Card sx={{ maxWidth: 250}}>
+        <Card sx={{ maxWidth: 250, maxHeight:350}}>
             <CardActionArea>
                 <CardMedia
                 component="img"
@@ -19,10 +19,12 @@ const ProductosCard = () => {
                 <Typography gutterBottom variant="h5" component="div">
                     Lizard
                 </Typography>
-                <Typography variant='h6'>30.000$</Typography>
+                <Typography style={{color: '#2a9d8f'}} variant='h6'>30.000$</Typography>
                 <Typography variant="body2" color="text.secondary">
                     Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
+                    species, ranging across all continents except Antarcticaawfwafwafawfawfwafawawfawfawfawfwawfafawfawffwafaw
+                    afawfwafwafawfwafawfafawfwafwafawfawf
+                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                 </Typography>
                 </CardContent>
             </CardActionArea>

@@ -10,26 +10,39 @@ function valuetext(value) {
   }
 
 const BuscadorProductos = () => {
-    const refMin = useRef(null)
-    const refMax = useRef(null)
+    const valorInicial = [50, 15000]
 
-    const [value, setValue] = React.useState([0, 15000]);
+    const refMin = useRef()
+    const refMax = useRef()
+
+    const [value, setValue] = React.useState(valorInicial);
+
+    const minDistance = 5000;
 
     const handleChange = (event, newValue, activeThumb) => {
         
-        setValue(newValue)
-        refMin.current.value = newValue[0]
-        refMax.current.value = newValue[1]
+        if (!Array.isArray(newValue)) {
+            return;
+          }
+      
+          if (activeThumb === 0) {
+            setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+          } else {
+            setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+          }
+
+        // setValue(newValue)
+        refMin.current.value = value[0]
+        refMax.current.value = value[1]
     }
     const handleBlur = (event, newValue) => {
        if(+refMax.current.value < +refMin.current.value){
-            setValue([+refMin.current.value, +refMin.current.value]);
-            refMax.current.value = refMin.current.value
+            const newMax = +refMin.current.value + minDistance
+            setValue([+refMin.current.value, +newMax]);
+            refMax.current.value = newMax
        }else{
             setValue([+refMin.current.value, +refMax.current.value]);
-       }
-
-        
+       }        
     }
 
     return(
@@ -39,11 +52,11 @@ const BuscadorProductos = () => {
                 <div id='range-input-container'>
                     <div className='range-text-input'>
                         <label htmlFor="min">Min</label>
-                        <input ref={refMin} className='range-input' onBlur={handleBlur} type="text" name='min' />
+                        <input ref={refMin} className='range-input' onBlur={handleBlur} defaultValue={valorInicial[0]} type="number" name='min' />
                     </div>
                     <div className='range-text-input'>
                         <label htmlFor="max">Max</label>
-                        <input ref={refMax} className='range-input' onBlur={handleBlur} type="text" name='max'/>
+                        <input ref={refMax} className='range-input' onBlur={handleBlur} defaultValue={valorInicial[1]} type="number" name='max'/>
                     </div>
                 </div>
                 <Box sx={{ width: '75%' }}>
@@ -54,6 +67,7 @@ const BuscadorProductos = () => {
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         getAriaValueText={valuetext}
+                        step={1000}
                         disableSwap
                     />
                 </Box>
@@ -81,7 +95,9 @@ const BuscadorProductos = () => {
                         <li>Muebles</li>
                     </ul>
                 </div>
-                <Button variant="contained" component="span">Buscar</Button>
+                <Button variant="contained" onClick={() => {
+                    alert(value)
+                }} component="span">Buscar</Button>
             </div>
 
         </main>
