@@ -17,8 +17,8 @@ import {Link} from "react-router-dom"
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 
-const pages = ['Productos', 'Categorias'];
-const settings = ['Perfil', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Productos'];
+const settings = ['Perfil', 'Account', 'Logout'];
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -84,7 +84,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -164,12 +164,15 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
+              <Button>
               <Link
                 key={page}
                 to={'/' + page}
+                style={{textDecoration: 'none', color:'snow'}}
               >
                 {page}
               </Link>
+              </Button>
             ))}
 
           </Box>
@@ -208,7 +211,7 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                  <Link key={setting} to={'/' + setting} color= 'inherit' underline='none'><MenuItem  onClick={handleCloseUserMenu}><Typography textAlign="center">{setting}</Typography></MenuItem></Link>
+                  <Link style={{textDecoration: 'none', color:'black'}} key={setting} to={'/' + setting} color= 'inherit' underline='none'><MenuItem  onClick={handleCloseUserMenu}><Typography textAlign="center">{setting}</Typography></MenuItem></Link>
               ))}
             </Menu>
             

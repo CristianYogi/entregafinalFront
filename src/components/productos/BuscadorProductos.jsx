@@ -24,16 +24,18 @@ const BuscadorProductos = () => {
         if (!Array.isArray(newValue)) {
             return;
           }
-      
+          let valoresResult = [] // Tengo que almacenar el calculo en una variable que sino despues el slice y los inputs se descordinan nose por que.
           if (activeThumb === 0) {
-            setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+            valoresResult = [Math.min(newValue[0], value[1] - minDistance), value[1]]
+            setValue(valoresResult);
           } else {
-            setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+            valoresResult= [value[0], Math.max(newValue[1], value[0] + minDistance)]
+            setValue(valoresResult);
           }
 
         // setValue(newValue)
-        refMin.current.value = value[0]
-        refMax.current.value = value[1]
+        refMin.current.value = valoresResult[0]
+        refMax.current.value = valoresResult[1]
     }
     const handleBlur = (event, newValue) => {
        if(+refMax.current.value < +refMin.current.value){
@@ -46,9 +48,9 @@ const BuscadorProductos = () => {
     }
 
     return(
-        <main>
+        <>
             <div id='buscador-contenedor'>
-                <h1>Buscador</h1>
+                <h1>Buscar</h1>
                 <div id='range-input-container'>
                     <div className='range-text-input'>
                         <label htmlFor="min">Min</label>
@@ -100,7 +102,7 @@ const BuscadorProductos = () => {
                 }} component="span">Buscar</Button>
             </div>
 
-        </main>
+        </>
     )
 }
 

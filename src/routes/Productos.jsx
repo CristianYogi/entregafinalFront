@@ -4,7 +4,7 @@ import "../css/productos.css"
  import GrillaProductos from '../components/productos/GrillaProductos'
 const Productos = () => {
     return(
-        <main>
+        <main className='contenedor-principal'>
             <BuscadorProductos></BuscadorProductos>
             <GrillaProductos></GrillaProductos>
         </main>
