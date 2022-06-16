@@ -15,14 +15,21 @@ const BuscadorProductos = () => {
 
     const [value, setValue] = React.useState([0, 15000]);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const handleChange = (event, newValue, activeThumb) => {
+        
+        setValue(newValue)
         refMin.current.value = newValue[0]
         refMax.current.value = newValue[1]
     }
     const handleBlur = (event, newValue) => {
-       
-        setValue([+refMin.current.value, +refMax.current.value]);
+       if(+refMax.current.value < +refMin.current.value){
+            setValue([+refMin.current.value, +refMin.current.value]);
+            refMax.current.value = refMin.current.value
+       }else{
+            setValue([+refMin.current.value, +refMax.current.value]);
+       }
+
+        
     }
 
     return(
@@ -41,12 +48,13 @@ const BuscadorProductos = () => {
                 </div>
                 <Box sx={{ width: '75%' }}>
                     <Slider
-                        getAriaLabel={() => 'Price Range'}
+                        getAriaLabel={() => 'Minimum distance'}
                         value={value}
                         max={50000}
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         getAriaValueText={valuetext}
+                        disableSwap
                     />
                 </Box>
 
