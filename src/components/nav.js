@@ -64,7 +64,7 @@ const Search = styled('div')(({ theme }) => ({
   }));
 
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({userSesion}) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -72,6 +72,7 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
+  
     setAnchorElUser(event.currentTarget);
   };
 
@@ -81,7 +82,31 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = (event) => {
     setAnchorElUser(null);
+    
   };
+
+  const UserNavInfo = () => {
+      return(
+        <Box sx={{ flexGrow: 0 ,minWidth: '90px' , display:'flex', flexDirection : 'row', alignItems:'center', justifyContent:'space-around'}}>
+            
+        <Tooltip title="Open settings">
+          <IconButton  sx={{ p: 0 }}>
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          </IconButton>
+        </Tooltip>
+        <Typography style={{marginLeft: '10px'}}>{userSesion.userName}</Typography>
+      </Box>
+      )
+  }
+
+  const SesionOptions = () => {
+    return (
+      <div id='contendor-opciones-sesion'>
+      <Link to='/registrarse'><Typography>REGISTRARSE</Typography></Link>
+      <Link to='/login'><Typography id='link-login'>LOGIN</Typography></Link>
+      </div>
+    )
+  }
 
   return (
     <AppBar position="fixed">
@@ -186,36 +211,29 @@ const ResponsiveAppBar = () => {
                 inputProps={{ 'aria-label': 'search' }}
                 />
           </Search>
-
-          <Box sx={{ flexGrow: 0 ,minWidth: '90px' , display:'flex', flexDirection : 'row', alignItems:'center', justifyContent:'space-around'}}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                <Typography style={{marginLeft: '10px'}}>User</Typography>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                  <Link style={{textDecoration: 'none', color:'black'}} key={setting} to={'/' + setting} color= 'inherit' underline='none'><MenuItem  onClick={handleCloseUserMenu}><Typography textAlign="center">{setting}</Typography></MenuItem></Link>
-              ))}
-            </Menu>
-            
-          </Box>
+          {/* USER INFO */}
+          {!userSesion.userName ? <SesionOptions></SesionOptions> : <div id='contenedor-user-info' onClick={handleOpenUserMenu}><UserNavInfo></UserNavInfo></div>}
+              
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting) => (
+                <Link style={{textDecoration: 'none', color:'black'}} key={setting} to={'/' + setting} color= 'inherit' underline='none'><MenuItem  onClick={handleCloseUserMenu}><Typography textAlign="center">{setting}</Typography></MenuItem></Link>
+            ))}
+        </Menu>
           
         </Toolbar>
       </Container>

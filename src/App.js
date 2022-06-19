@@ -1,10 +1,13 @@
 import ResponsiveAppBar from './components/nav';
-import {Link, Outlet} from "react-router-dom"
+import {Outlet} from "react-router-dom"
 import "./app.css"
+import React, { useState } from 'react';
+import './css/nav.css'
 function App() {
+  const [userSesion, setUserSesion] = React.useState({userName: '', img: ''})
   return (
     <>
-      <ResponsiveAppBar></ResponsiveAppBar>
+      <ResponsiveAppBar userSesion={userSesion}></ResponsiveAppBar>
       <Outlet></Outlet>
     </>
   );
